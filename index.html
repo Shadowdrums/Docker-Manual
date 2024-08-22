@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Cheat Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <header class="text-center my-8">
+        <h1 class="text-4xl font-bold text-blue-600">Docker Cheat Sheet</h1>
+        <p class="text-xl font-semibold text-gray-500">By Shadowdrums & DJStomp</p>
+    </header>
+
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Installing Docker -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-semibold text-blue-500 mb-4">Installing Docker</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Add Docker’s GPG Key:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg</pre>
+                    </li>
+                    <li><strong>Set Up the Stable Repository:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null</pre>
+                    </li>
+                    <li><strong>Install Docker Engine:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">sudo apt-get update && sudo apt-get install -y docker-ce docker-ce-cli containerd.io</pre>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Installing Docker Compose -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-semibold text-yellow-500 mb-4">Installing Docker Compose</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Download Docker Compose:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose</pre>
+                    </li>
+                    <li><strong>Apply Executable Permissions:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">sudo chmod +x /usr/local/bin/docker-compose</pre>
+                    </li>
+                    <li><strong>Verify Installation:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker-compose --version</pre>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Managing Containers -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-semibold text-green-500 mb-4">Managing Containers</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Show All Running Containers:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker ps -a</pre>
+                    </li>
+                    <li><strong>Stop a Container:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker stop &lt;container name or ID&gt;</pre>
+                    </li>
+                    <li><strong>Remove a Container:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker rm &lt;container name or ID&gt;</pre>
+                    </li>
+                    <li><strong>Stop & Remove All Containers:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)</pre>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Working with Docker Images -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-semibold text-red-500 mb-4">Working with Docker Images</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Search for Docker Images:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker search &lt;image-name&gt;</pre>
+                    </li>
+                    <li><strong>Pull a Docker Image:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker pull &lt;image-name&gt;:&lt;tag&gt;</pre>
+                    </li>
+                    <li><strong>Verify You Have the Image:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker images</pre>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Running Docker Containers -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-semibold text-purple-500 mb-4">Running Docker Containers</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Run an Image Interactively:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker run -it ubuntu</pre>
+                    </li>
+                    <li><strong>Run an Image with a Specific Shell:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker run -it ubuntu bash</pre>
+                    </li>
+                    <li><strong>Run a Container in Detached Mode:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker run -d ubuntu</pre>
+                    </li>
+                    <li><strong>Run a Container with a Custom Name:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker run -it --name &lt;container name&gt; ubuntu</pre>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Creating a Dockerfile -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-semibold text-orange-500 mb-4">Creating a Dockerfile</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Basic Dockerfile:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">
+FROM ubuntu:latest
+WORKDIR /app
+COPY . /app
+RUN apt-get update && apt-get install -y python3
+EXPOSE 80
+CMD ["echo", "Hello, World!"]
+                        </pre>
+                    </li>
+                    <li><strong>Build Docker Image:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker build -t my-custom-image .</pre>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Using Docker Compose -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-semibold text-cyan-500 mb-4">Using Docker Compose</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Example docker-compose.yml:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">
+version: '3'
+services:
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+                        </pre>
+                    </li>
+                    <li><strong>Build and Start Containers:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker-compose up --build</pre>
+                    </li>
+                    <li><strong>Stop Containers:</strong>
+                        <pre class="bg-gray-200 p-2 rounded-md text-sm">docker-compose down</pre>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    
+    <footer class="text-center my-8 text-sm text-gray-500">
+        <p>Docker Cheat Sheet<br>Shadowdrums & DJStomp</p>
+    </footer>
+
+</body>
+</html>
